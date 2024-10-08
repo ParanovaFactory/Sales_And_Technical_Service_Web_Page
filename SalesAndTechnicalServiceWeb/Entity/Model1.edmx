@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Db_TechnicalServiceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBl_Contact">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContactNameSurname" Type="varchar" MaxLength="50" />
+          <Property Name="ContactEMail" Type="varchar" MaxLength="50" />
+          <Property Name="ContactContext" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TblAbout">
+          <Key>
+            <PropertyRef Name="AboutId" />
+          </Key>
+          <Property Name="AboutId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Context" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TblCathegories">
+          <Key>
+            <PropertyRef Name="CathegoryId" />
+          </Key>
+          <Property Name="CathegoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CathegoryName" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="TblDefectiveProduct">
+          <Key>
+            <PropertyRef Name="FaultId" />
+          </Key>
+          <Property Name="FaultId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FaultProcess" Type="int" />
+          <Property Name="FaultProblem" Type="varchar(max)" />
+          <Property Name="FaultNote" Type="varchar(max)" />
+          <Property Name="FaultEstimatedPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FaultTransactionsMade" Type="varchar(max)" />
+          <Property Name="FaultNetPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FaultSerieNo" Type="char" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="TblProcess">
+          <Key>
+            <PropertyRef Name="ProcessId" />
+          </Key>
+          <Property Name="ProcessId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcessTitle" Type="varchar" MaxLength="50" />
+          <Property Name="ProcessDescription" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TblProducts">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" />
+          <Property Name="ProductBrand" Type="varchar" MaxLength="30" />
+          <Property Name="ProductBuyingPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ProductSellingPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ProductStock" Type="smallint" />
+          <Property Name="ProductCathegory" Type="int" />
+          <Property Name="ProductDescription" Type="varchar(max)" />
+          <Property Name="ProductStatus" Type="bit" />
+        </EntityType>
+        <Association Name="FK_TblDefectiveProduct_TblProcess">
+          <End Role="TblProcess" Type="Self.TblProcess" Multiplicity="0..1" />
+          <End Role="TblDefectiveProduct" Type="Self.TblDefectiveProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblProcess">
+              <PropertyRef Name="ProcessId" />
+            </Principal>
+            <Dependent Role="TblDefectiveProduct">
+              <PropertyRef Name="FaultProcess" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblProducts_TblCathegories">
+          <End Role="TblCathegories" Type="Self.TblCathegories" Multiplicity="0..1" />
+          <End Role="TblProducts" Type="Self.TblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCathegories">
+              <PropertyRef Name="CathegoryId" />
+            </Principal>
+            <Dependent Role="TblProducts">
+              <PropertyRef Name="ProductCathegory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Db_TechnicalServiceModelStoreContainer">
+          <EntitySet Name="TBl_Contact" EntityType="Self.TBl_Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblAbout" EntityType="Self.TblAbout" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblCathegories" EntityType="Self.TblCathegories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblDefectiveProduct" EntityType="Self.TblDefectiveProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblProcess" EntityType="Self.TblProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblProducts" EntityType="Self.TblProducts" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TblDefectiveProduct_TblProcess" Association="Self.FK_TblDefectiveProduct_TblProcess">
+            <End Role="TblProcess" EntitySet="TblProcess" />
+            <End Role="TblDefectiveProduct" EntitySet="TblDefectiveProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblProducts_TblCathegories" Association="Self.FK_TblProducts_TblCathegories">
+            <End Role="TblCathegories" EntitySet="TblCathegories" />
+            <End Role="TblProducts" EntitySet="TblProducts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Db_TechnicalServiceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TblDefectiveProduct">
+          <Key>
+            <PropertyRef Name="FaultId" />
+          </Key>
+          <Property Name="FaultId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FaultProcess" Type="Int32" />
+          <Property Name="FaultProblem" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FaultNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FaultEstimatedPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FaultTransactionsMade" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FaultNetPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FaultSerieNo" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="TblProcess" Relationship="Self.FK_TblDefectiveProduct_TblProcess" FromRole="TblDefectiveProduct" ToRole="TblProcess" />
+        </EntityType>
+        <EntityType Name="TblProcess">
+          <Key>
+            <PropertyRef Name="ProcessId" />
+          </Key>
+          <Property Name="ProcessId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcessTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProcessDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TblDefectiveProducts" Relationship="Self.FK_TblDefectiveProduct_TblProcess" FromRole="TblProcess" ToRole="TblDefectiveProduct" />
+        </EntityType>
+        <Association Name="FK_TblDefectiveProduct_TblProcess">
+          <End Role="TblProcess" Type="Self.TblProcess" Multiplicity="0..1" />
+          <End Role="TblDefectiveProduct" Type="Self.TblDefectiveProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblProcess">
+              <PropertyRef Name="ProcessId" />
+            </Principal>
+            <Dependent Role="TblDefectiveProduct">
+              <PropertyRef Name="FaultProcess" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Db_TechnicalServiceEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TblDefectiveProducts" EntityType="Self.TblDefectiveProduct" />
+          <EntitySet Name="TblProcesses" EntityType="Self.TblProcess" />
+          <AssociationSet Name="FK_TblDefectiveProduct_TblProcess" Association="Self.FK_TblDefectiveProduct_TblProcess">
+            <End Role="TblProcess" EntitySet="TblProcesses" />
+            <End Role="TblDefectiveProduct" EntitySet="TblDefectiveProducts" />
+          </AssociationSet>
+          <EntitySet Name="TblProducts" EntityType="Db_TechnicalServiceModel.TblProduct" />
+          <EntitySet Name="TblCathegories" EntityType="Db_TechnicalServiceModel.TblCathegory" />
+          <AssociationSet Name="FK_TblProducts_TblCathegories" Association="Db_TechnicalServiceModel.FK_TblProducts_TblCathegories">
+            <End Role="TblCathegory" EntitySet="TblCathegories" />
+            <End Role="TblProduct" EntitySet="TblProducts" />
+          </AssociationSet>
+          <EntitySet Name="TBl_Contact" EntityType="Db_TechnicalServiceModel.TBl_Contact" />
+          <EntitySet Name="TblAbouts" EntityType="Db_TechnicalServiceModel.TblAbout" />
+        </EntityContainer>
+        <EntityType Name="TblProduct">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductBrand" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ProductBuyingPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProductSellingPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProductStock" Type="Int16" />
+          <Property Name="ProductCathegory" Type="Int32" />
+          <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProductStatus" Type="Boolean" />
+          <NavigationProperty Name="TblCathegory" Relationship="Db_TechnicalServiceModel.FK_TblProducts_TblCathegories" FromRole="TblProduct" ToRole="TblCathegory" />
+        </EntityType>
+        <EntityType Name="TblCathegory">
+          <Key>
+            <PropertyRef Name="CathegoryId" />
+          </Key>
+          <Property Name="CathegoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CathegoryName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TblProducts" Relationship="Db_TechnicalServiceModel.FK_TblProducts_TblCathegories" FromRole="TblCathegory" ToRole="TblProduct" />
+        </EntityType>
+        <Association Name="FK_TblProducts_TblCathegories">
+          <End Type="Db_TechnicalServiceModel.TblCathegory" Role="TblCathegory" Multiplicity="0..1" />
+          <End Type="Db_TechnicalServiceModel.TblProduct" Role="TblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCathegory">
+              <PropertyRef Name="CathegoryId" />
+            </Principal>
+            <Dependent Role="TblProduct">
+              <PropertyRef Name="ProductCathegory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBl_Contact">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactNameSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactEMail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactContext" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TblAbout">
+          <Key>
+            <PropertyRef Name="AboutId" />
+          </Key>
+          <Property Name="AboutId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Context" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Db_TechnicalServiceModelStoreContainer" CdmEntityContainer="Db_TechnicalServiceEntities1">
+          <EntitySetMapping Name="TblDefectiveProducts">
+            <EntityTypeMapping TypeName="Db_TechnicalServiceModel.TblDefectiveProduct">
+              <MappingFragment StoreEntitySet="TblDefectiveProduct">
+                <ScalarProperty Name="FaultId" ColumnName="FaultId" />
+                <ScalarProperty Name="FaultProcess" ColumnName="FaultProcess" />
+                <ScalarProperty Name="FaultProblem" ColumnName="FaultProblem" />
+                <ScalarProperty Name="FaultNote" ColumnName="FaultNote" />
+                <ScalarProperty Name="FaultEstimatedPrice" ColumnName="FaultEstimatedPrice" />
+                <ScalarProperty Name="FaultTransactionsMade" ColumnName="FaultTransactionsMade" />
+                <ScalarProperty Name="FaultNetPrice" ColumnName="FaultNetPrice" />
+                <ScalarProperty Name="FaultSerieNo" ColumnName="FaultSerieNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblProcesses">
+            <EntityTypeMapping TypeName="Db_TechnicalServiceModel.TblProcess">
+              <MappingFragment StoreEntitySet="TblProcess">
+                <ScalarProperty Name="ProcessId" ColumnName="ProcessId" />
+                <ScalarProperty Name="ProcessTitle" ColumnName="ProcessTitle" />
+                <ScalarProperty Name="ProcessDescription" ColumnName="ProcessDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblProducts">
+            <EntityTypeMapping TypeName="Db_TechnicalServiceModel.TblProduct">
+              <MappingFragment StoreEntitySet="TblProducts">
+                <ScalarProperty Name="ProductStatus" ColumnName="ProductStatus" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="ProductCathegory" ColumnName="ProductCathegory" />
+                <ScalarProperty Name="ProductStock" ColumnName="ProductStock" />
+                <ScalarProperty Name="ProductSellingPrice" ColumnName="ProductSellingPrice" />
+                <ScalarProperty Name="ProductBuyingPrice" ColumnName="ProductBuyingPrice" />
+                <ScalarProperty Name="ProductBrand" ColumnName="ProductBrand" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblCathegories">
+            <EntityTypeMapping TypeName="Db_TechnicalServiceModel.TblCathegory">
+              <MappingFragment StoreEntitySet="TblCathegories">
+                <ScalarProperty Name="CathegoryName" ColumnName="CathegoryName" />
+                <ScalarProperty Name="CathegoryId" ColumnName="CathegoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBl_Contact">
+            <EntityTypeMapping TypeName="Db_TechnicalServiceModel.TBl_Contact">
+              <MappingFragment StoreEntitySet="TBl_Contact">
+                <ScalarProperty Name="ContactContext" ColumnName="ContactContext" />
+                <ScalarProperty Name="ContactEMail" ColumnName="ContactEMail" />
+                <ScalarProperty Name="ContactNameSurname" ColumnName="ContactNameSurname" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblAbouts">
+            <EntityTypeMapping TypeName="Db_TechnicalServiceModel.TblAbout">
+              <MappingFragment StoreEntitySet="TblAbout">
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="AboutId" ColumnName="AboutId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dea88c69e9aa4a0eadc77639b70573a0" Name="Diagram1">
+        <EntityTypeShape EntityType="Db_TechnicalServiceModel.TblDefectiveProduct" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_TechnicalServiceModel.TblProcess" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="Db_TechnicalServiceModel.FK_TblDefectiveProduct_TblProcess" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Db_TechnicalServiceModel.TblProduct" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Db_TechnicalServiceModel.TblCathegory" Width="1.5" PointX="0.75" PointY="9.375" />
+        <AssociationConnector Association="Db_TechnicalServiceModel.FK_TblProducts_TblCathegories" />
+        <EntityTypeShape EntityType="Db_TechnicalServiceModel.TBl_Contact" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="Db_TechnicalServiceModel.TblAbout" Width="1.5" PointX="5.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
