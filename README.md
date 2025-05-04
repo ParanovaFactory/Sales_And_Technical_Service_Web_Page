@@ -84,4 +84,4 @@ To provide an end-to-end **Sales and Technical Service** system for internal man
 
 ## 📄 License
 
-MIT License — Feel free to use, modify, and contribute
+MIT License — Feel free to use, modify, and contribute.
